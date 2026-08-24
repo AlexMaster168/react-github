@@ -1,36 +1,40 @@
 {
-  "name": "react-hooks",
-  "version": "0.1.0",
+  "name": "react-github",
   "private": true,
-  "dependencies": {
-    "axios": "^0.19.2",
-    "bootstrap": "^4.5.0",
-    "firebase-tools": "^8.5.0",
-    "node-sass": "^4.14.1",
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0",
-    "react-router-dom": "^5.2.0",
-    "react-scripts": "3.1.1"
-  },
+  "version": "2.0.0",
+  "type": "module",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
   },
-  "eslintConfig": {
-    "extends": "react-app"
+  "dependencies": {
+    "axios": "^1.7.9",
+    "bootstrap": "^5.3.3",
+    "firebase": "^11.1.0",
+    "firebase-tools": "^13.29.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-router-dom": "^7.1.1",
+    "react-hot-toast": "^2.4.1",
+    "react-icons": "^5.4.0",
+    "react-markdown": "^9.0.3",
+    "date-fns": "^4.1.0",
+    "react-syntax-highlighter": "^15.6.1",
+    "lucide-react": "^0.468.0"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "devDependencies": {
+    "@types/react": "^19.0.7",
+    "@types/react-dom": "^19.0.3",
+    "@types/react-syntax-highlighter": "^15.5.13",
+    "@vitejs/plugin-react": "^4.3.4",
+    "typescript": "~5.7.3",
+    "vite": "^6.0.7",
+    "eslint": "^9.18.0",
+    "eslint-plugin-react-hooks": "^5.1.0",
+    "eslint-plugin-react-refresh": "^0.4.18",
+    "@eslint/js": "^9.18.0",
+    "typescript-eslint": "^8.21.0"
   }
 }
