@@ -14,20 +14,20 @@ export const HomePage = () => {
 
   return (
     <div className="fade-in">
-      <div className="text-center mb-4">
-        <h1 className="d-flex align-items-center justify-content-center gap-2" style={{ color: 'var(--text-primary)' }}>
-          <Users size={32} /> Поиск пользователей
+      <div className="text-center mb-3 mb-md-4">
+        <h1 className="d-flex align-items-center justify-content-center gap-2" style={{ color: 'var(--text-primary)', fontSize: 'clamp(1.3rem, 5vw, 2rem)' }}>
+          <Users size={28} /> Поиск пользователей
         </h1>
-        <p style={{ color: 'var(--text-secondary)' }}>Найдите любого пользователя GitHub по имени или нику</p>
+        <p className="d-none d-sm-block" style={{ color: 'var(--text-secondary)' }}>Найдите любого пользователя GitHub по имени или нику</p>
       </div>
       <Search mode="users" />
-      {searchResult && <div className="mb-3" style={{ color: 'var(--text-secondary)' }}>Найдено: {searchResult.total_count.toLocaleString()} пользователей</div>}
+      {searchResult && <div className="mb-3" style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>Найдено: {searchResult.total_count.toLocaleString()} пользователей</div>}
       {loading ? (
         <div className="d-flex justify-content-center p-5"><div className="spin" style={{ width: 40, height: 40, border: '3px solid var(--border-color)', borderTopColor: 'var(--accent-blue)', borderRadius: '50%' }} /></div>
       ) : users.length > 0 ? (
         <><UserGrid users={users} /><Pagination page={page} totalPages={totalPages} onPageChange={handlePageChange} /></>
       ) : (
-        <div className="text-center p-5" style={{ color: 'var(--text-secondary)' }}><SearchIcon size={48} style={{ opacity: 0.3, marginBottom: 16 }} /><p>Введите ник для поиска</p></div>
+        <div className="text-center p-4 p-md-5" style={{ color: 'var(--text-secondary)' }}><SearchIcon size={48} style={{ opacity: 0.3, marginBottom: 16 }} /><p>Введите ник для поиска</p></div>
       )}
     </div>
   )

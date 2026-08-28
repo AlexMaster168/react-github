@@ -16,14 +16,14 @@ interface TabsProps {
 
 export const Tabs = ({ tabs, activeTab, onTabChange, children }: TabsProps) => (
   <div>
-    <div className="d-flex gap-1 mb-3 p-1 rounded-lg" style={{ backgroundColor: 'var(--bg-secondary)', border: '1px solid var(--border-color)', overflowX: 'auto' }}>
+    <div className="tabs-scroll d-flex p-1 rounded-lg mb-3" style={{ backgroundColor: 'var(--bg-secondary)', border: '1px solid var(--border-color)' }}>
       {tabs.map(tab => (
-        <button key={tab.id} className="btn d-flex align-items-center gap-1 px-3 py-2 rounded-md"
+        <button key={tab.id} className="btn d-flex align-items-center gap-1 px-3 py-2 rounded-md flex-shrink-0"
           onClick={() => onTabChange(tab.id)}
-          style={{ backgroundColor: activeTab === tab.id ? 'var(--accent-blue)' : 'transparent', color: activeTab === tab.id ? '#fff' : 'var(--text-secondary)', border: 'none', whiteSpace: 'nowrap', transition: 'all 0.2s' }}>
+          style={{ backgroundColor: activeTab === tab.id ? 'var(--accent-blue)' : 'transparent', color: activeTab === tab.id ? '#fff' : 'var(--text-secondary)', border: 'none', whiteSpace: 'nowrap', transition: 'all 0.2s', fontSize: '0.85rem' }}>
           {tab.icon}
-          {tab.label}
-          {tab.count !== undefined && <span className="badge ms-1" style={{ backgroundColor: activeTab === tab.id ? 'rgba(255,255,255,0.2)' : 'var(--bg-tertiary)', color: activeTab === tab.id ? '#fff' : 'var(--text-secondary)', fontSize: '0.7rem' }}>{tab.count}</span>}
+          <span className="d-none d-sm-inline">{tab.label}</span>
+          {tab.count !== undefined && <span className="badge ms-1" style={{ backgroundColor: activeTab === tab.id ? 'rgba(255,255,255,0.2)' : 'var(--bg-tertiary)', color: activeTab === tab.id ? '#fff' : 'var(--text-secondary)', fontSize: '0.65rem' }}>{tab.count}</span>}
         </button>
       ))}
     </div>
