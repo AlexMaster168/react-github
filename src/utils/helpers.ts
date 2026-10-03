@@ -86,3 +86,20 @@ export const getRelativeTime = (date: string): string => {
   if (diffMins > 0) return `${diffMins} мин. назад`
   return 'только что'
 }
+
+// GitHub API отдаёт content в base64 с переносами строк; atob даёт Latin-1, поэтому декодируем байты как UTF-8
+export const decodeBase64 = (content: string): string => {
+  const binary = atob(content.replace(/\s/g, ''))
+  const bytes = Uint8Array.from(binary, char => char.charCodeAt(0))
+  return new TextDecoder('utf-8').decode(bytes)
+}
+
+// Превращает относительный путь из README в абсолютный URL GitHub (картинки — raw, ссылки — blob)
+export const resolveGithubUrl = (url: string, owner: string, repo: string, isAsset: boolean, basePath = ''): string => {
+  if (!url || /^([a-z][a-z\d+.-]*:|\/\/|#)/i.test(url)) return url
+  const root = isAsset
+    ? `https://raw.githubusercontent.com/${owner}/${repo}/HEAD/`
+    : `https://github.com/${owner}/${repo}/blob/HEAD/`
+  const base = new URL(basePath ? `${basePath.replace(/\/?$/, '/')}` : '', root)
+  return new URL(url.replace(/^\//, ''), url.startsWith('/') ? root : base).toString()
+}

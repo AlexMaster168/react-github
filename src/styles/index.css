@@ -290,3 +290,73 @@ a:hover {
 .github-link:hover {
   color: var(--accent-cyan);
 }
+
+.markdown-body {
+  color: var(--text-primary);
+  word-wrap: break-word;
+  overflow-wrap: anywhere;
+}
+
+.markdown-body img {
+  max-width: 100%;
+  vertical-align: middle;
+}
+
+.markdown-body ul,
+.markdown-body ol {
+  padding-left: 2em;
+  margin-bottom: 16px;
+}
+
+.markdown-body li + li {
+  margin-top: 4px;
+}
+
+.markdown-body li.task-list-item {
+  list-style: none;
+}
+
+.markdown-body li.task-list-item input {
+  margin: 0 6px 0 -1.4em;
+}
+
+.markdown-body :not(pre) > code {
+  padding: 0.2em 0.4em;
+  font-size: 85%;
+  background: var(--bg-tertiary);
+  border-radius: 6px;
+}
+
+.markdown-body pre {
+  padding: 16px;
+  overflow: auto;
+  background: var(--bg-tertiary);
+  border-radius: 6px;
+}
+
+.markdown-body table {
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  overflow: auto;
+  border-collapse: collapse;
+  margin-bottom: 16px;
+}
+
+.markdown-body th,
+.markdown-body td {
+  padding: 6px 13px;
+  border: 1px solid var(--border-color);
+}
+
+.markdown-body tr:nth-child(2n) {
+  background: var(--bg-tertiary);
+}
+
+.markdown-body details {
+  margin-bottom: 16px;
+}
+
+.markdown-body summary {
+  cursor: pointer;
+}

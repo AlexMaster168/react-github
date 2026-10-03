@@ -6,6 +6,7 @@ import {
   type ReactNode
 } from 'react'
 import { githubApi } from '../api/github'
+import { decodeBase64 } from '../utils/helpers'
 import type {
   GithubUser,
   GithubRepo,
@@ -442,7 +443,7 @@ export const GithubProvider = ({ children }: { children: ReactNode }) => {
     dispatch({ type: 'SET_LOADING' })
     try {
       const readme = await githubApi.getRepoReadme(owner, repo)
-      const decoded = readme.content ? atob(readme.content) : null
+      const decoded = readme.content ? decodeBase64(readme.content) : null
       dispatch({ type: 'GET_README', payload: decoded })
     } catch {
       dispatch({ type: 'CLEAR_LOADING' })

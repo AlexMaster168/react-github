@@ -67,7 +67,7 @@ export const RepoPage = () => {
       <RepoHeader owner={owner!} repo={name!} description={repo.description} stars={repo.stargazers_count} forks={repo.forks_count} watchers={repo.watchers_count} language={repo.language} createdAt={repo.created_at} updatedAt={repo.updated_at} topics={topics} />
       {activeTab === 'contributors' && Object.keys(languages).length > 0 && <LanguageBar languages={languages} />}
       <Tabs tabs={tabs} activeTab={activeTab} onTabChange={id => handleTabChange(id as RepoTab)}>
-        {activeTab === 'readme' && (loading ? <LoaderInline /> : readme ? <div className="p-4 rounded-lg" style={{ backgroundColor: 'var(--bg-secondary)', border: '1px solid var(--border-color)' }}><MarkdownRenderer content={readme} /></div> : <p style={{ color: 'var(--text-secondary)' }}>README не найден</p>)}
+        {activeTab === 'readme' && (loading ? <LoaderInline /> : readme ? <div className="p-4 rounded-lg" style={{ backgroundColor: 'var(--bg-secondary)', border: '1px solid var(--border-color)' }}><MarkdownRenderer content={readme} owner={owner} repo={name} /></div> : <p style={{ color: 'var(--text-secondary)' }}>README не найден</p>)}
         {activeTab === 'code' && <FileExplorer owner={owner!} repo={name!} defaultBranch={repo.default_branch} />}
         {activeTab === 'issues' && <IssueList issues={issues} loading={loading} />}
         {activeTab === 'prs' && <PullRequestList pullRequests={pullRequests} loading={loading} />}

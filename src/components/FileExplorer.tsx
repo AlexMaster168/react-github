@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import type { GithubContent } from '../types'
 import { githubApi } from '../api/github'
+import { decodeBase64 } from '../utils/helpers'
+import { MarkdownRenderer } from './MarkdownRenderer'
 import { File, Folder, FileCode, FileText, ChevronRight, ArrowLeft, ExternalLink } from 'lucide-react'
 
 export const FileExplorer = ({ owner, repo, defaultBranch = 'main' }: { owner: string; repo: string; defaultBranch?: string }) => {
@@ -62,7 +64,10 @@ export const FileExplorer = ({ owner, repo, defaultBranch = 'main' }: { owner: s
   if (loading) return <div className="d-flex justify-content-center p-4"><div className="spin" style={{ width: 24, height: 24, border: '2px solid var(--border-color)', borderTopColor: 'var(--accent-blue)', borderRadius: '50%' }} /></div>
 
   if (selectedFile) {
-    const decoded = selectedFile.content ? atob(selectedFile.content) : ''
+    const fileExt = selectedFile.name.split('.').pop()?.toLowerCase() || ''
+    const isImage = ['png', 'jpg', 'jpeg', 'gif', 'svg', 'webp', 'ico', 'bmp'].includes(fileExt)
+    const isMarkdown = ['md', 'markdown'].includes(fileExt)
+    const decoded = !isImage && selectedFile.content ? decodeBase64(selectedFile.content) : ''
     return (
       <div className="rounded-lg overflow-hidden" style={{ backgroundColor: 'var(--bg-secondary)', border: '1px solid var(--border-color)' }}>
         <div className="d-flex align-items-center justify-content-between p-3" style={{ backgroundColor: 'var(--bg-tertiary)', borderBottom: '1px solid var(--border-color)' }}>
@@ -73,7 +78,13 @@ export const FileExplorer = ({ owner, repo, defaultBranch = 'main' }: { owner: s
           </div>
           <a href={selectedFile.html_url} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--text-secondary)' }}><ExternalLink size={14} /></a>
         </div>
-        <pre className="p-3 mb-0 overflow-auto" style={{ backgroundColor: 'var(--bg-primary)', color: 'var(--text-primary)', fontSize: '0.875rem', lineHeight: 1.5, maxHeight: 500 }}><code>{decoded}</code></pre>
+        {isImage && selectedFile.download_url ? (
+          <div className="p-3 text-center" style={{ backgroundColor: 'var(--bg-primary)' }}><img src={selectedFile.download_url} alt={selectedFile.name} style={{ maxWidth: '100%' }} /></div>
+        ) : isMarkdown ? (
+          <div className="p-4" style={{ backgroundColor: 'var(--bg-primary)' }}><MarkdownRenderer content={decoded} owner={owner} repo={repo} basePath={selectedFile.path.split('/').slice(0, -1).join('/')} /></div>
+        ) : (
+          <pre className="p-3 mb-0 overflow-auto" style={{ backgroundColor: 'var(--bg-primary)', color: 'var(--text-primary)', fontSize: '0.875rem', lineHeight: 1.5, maxHeight: 500 }}><code>{decoded}</code></pre>
+        )}
       </div>
     )
   }
